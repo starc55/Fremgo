@@ -1,38 +1,504 @@
+/* --- GLOBAL --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f4f6fb;
+    display: block;
+    /* flexni olib tashlash */
+}
+
 .App {
-  text-align: center;
+    width: 50%;
+    max-width: 1200px;
+    min-height: 100vh;
+    background: #fff;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 90px;
+    border-radius: 0 0 15px 15px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+@media (max-width: 1024px) {
+    .main-content {
+        width: 80%;
+    }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@media (max-width: 768px) {
+    .main-content {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+/* 📱 Responsive layout */
+@media (max-width: 1024px) {
+    .App {
+        width: 80%;
+    }
 }
 
-.App-link {
-  color: #61dafb;
+@media (max-width: 768px) {
+    .App {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+    }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* --- NAVBAR --- */
+.navbar-top {
+    background: linear-gradient(135deg, #007bff, #0056d6);
+    color: #fff;
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    text-align: center;
+}
+
+.navbar_top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.navbar_top-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.navbar_top-logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.navbar_top-logo h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.header-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-action button {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    font-size: 1.2rem;
+    padding: 8px;
+    background: transparent;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.header-action button:hover {
+    transform: translateY(-2px);
+}
+
+/* --- ACCOUNT INFO --- */
+.navbar-top .account-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 15px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    text-align: left;
+}
+
+.navbar-top .account-info h2 {
+    font-size: 1.1rem;
+}
+
+.navbar-top .account-info p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* --- NOTIFICATION --- */
+.home-notification {
+    background: #eef3ff;
+    margin: 20px;
+    color: #0047bb;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notif-icon {
+    font-size: 1.3rem;
+    color: #010b1c;
+}
+
+.video-section {
+    padding: 0 20px;
+}
+
+.video-section img,
+.video-section video {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+/* --- ACTION GRID --- */
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin: 20px;
+    padding: 0 10px;
+}
+
+.Btn {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: #0274b3;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.Btn .lordIcon {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.Btn .text {
+    position: absolute;
+    color: white;
+    font-weight: 600;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s, transform 0.4s;
+    transform: translateY(10px);
+}
+
+/* Hover Animation */
+.Btn:hover {
+    width: 100px;
+    border-radius: 30px;
+}
+
+.Btn:hover .lordIcon {
+    opacity: 0;
+}
+
+.Btn:hover .text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- HOME BANNER --- */
+.home-banner {
+    margin: 0 20px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.home-banner img {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+    border-radius: 20px;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- QUOTES CARD --- */
+.quotes-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+    margin: 20px;
+}
+
+.quotes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+.quotes-header h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.exchange-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tab {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #6b7280;
+    transition: 0.3s;
+}
+
+.tab:hover {
+    background: #f3f4f6;
+}
+
+.tab.active {
+    background: rgb(8, 84, 249);
+    color: #fff;
+    border-color: rgb(8, 84, 249);
+}
+
+/* --- QUOTES LIST --- */
+.quotes-list-header {
+    display: flex;
+    gap: 12px;
+    padding: 8px 4px;
+    border-top: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.quotes-list-header .col {
+    flex: 1;
+    text-align: left;
+}
+
+.price-col {
+    flex: 0.9;
+    text-align: right;
+}
+
+.change-col {
+    flex: 0.6;
+    text-align: right;
+}
+
+.quotes-list {
+    max-height: 420px;
+    overflow: auto;
+}
+
+.quote-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 4px;
+    border-bottom: 1px solid #fafafa;
+}
+
+.pair {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.coin-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #eee;
+    object-fit: cover;
+}
+
+.pair-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.coin-name {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.pair-sub {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.price {
+    flex: 0.9;
+    text-align: right;
+    font-weight: 600;
+}
+
+.change {
+    flex: 0.6;
+    text-align: right;
+    font-weight: 700;
+}
+
+.change.up {
+    color: #059669;
+}
+
+.change.down {
+    color: #dc2626;
+}
+
+.loading {
+    padding: 18px;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* --- FOOTER --- */
+.footer {
+    background: #f9f9f9;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 15px;
+    margin-top: auto;
+    text-align: left;
+}
+
+.footer p {
+    color: #434343;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.footer-bottom .card {
+    width: 180px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+.card-header {
+    font-size: 13px;
+    color: #555 !important;
+    margin-bottom: 6px;
+}
+
+.card-body {
+    font-size: 14px;
+    color: #007bff !important;
+}
+
+/* --- BOTTOM NAV --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    max-width: 600px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.381);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.nav-item {
+    text-align: center;
+    color: #555;
+    transition: 0.3s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: #007bff;
+}
+
+.nav-item span {
+    display: block;
+    font-size: 1.4rem;
+}
+
+.nav-item p {
+    font-size: 0.75rem;
+    text-decoration: none;
+}
+
+/* --- MEDIA QUERIES (MOBILE) --- */
+@media (max-width: 600px) {
+    .home-notification {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .action-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .Btn {
+        width: 55px;
+        height: 55px;
+    }
+
+    .home-banner img {
+        height: 160px;
+    }
+
+    .quotes-card {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .quotes-list-header,
+    .quote-row {
+        font-size: 12px;
+    }
+
+    .footer-bottom .card {
+        width: 45%;
+    }
 }
