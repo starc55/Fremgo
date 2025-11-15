@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdNotificationsActive } from "react-icons/md";
 import Marquee from "react-fast-marquee";
+import { motion } from "framer-motion"; // faqat animatsiya uchun
 import hero from "../assets/hero.jpg";
 import btc from "../assets/btc.png";
 import ada from "../assets/ada.png";
@@ -14,17 +15,8 @@ import trx from "../assets/trx.png";
 import xrp from "../assets/xrp.png";
 import shib from "../assets/shib.png";
 
-const actions = [
-  ["https://cdn.lordicon.com/ezityrjj.json", "Recharge"],
-  ["https://cdn.lordicon.com/shlsuhqu.json", "Withdraw"],
-  ["https://cdn.lordicon.com/jdgfsfzr.json", "Help"],
-  ["https://cdn.lordicon.com/fqbvgezn.json", "Team"],
-  ["https://cdn.lordicon.com/fqbvgezn.json", "Activity"],
-  ["https://cdn.lordicon.com/pfvaixkr.json", "Invite Friends"],
-  ["https://cdn.lordicon.com/ldyubhgs.json", "Agent"],
-  ["https://cdn.lordicon.com/ldyubhgs.json", "News"],
-];
-
+// actions, coins, exchanges, coinIcons – o'zgarmaydi
+// Coins list
 const coins = [
   "BTC",
   "ETH",
@@ -38,8 +30,23 @@ const coins = [
   "TRX",
   "SHIB",
 ];
+
+// Exchanges
 const exchanges = ["BINANCE", "OKX", "HUOBI", "COINBASE"];
 
+// Actions grid
+const actions = [
+  ["https://cdn.lordicon.com/ezityrjj.json", "Recharge"],
+  ["https://cdn.lordicon.com/shlsuhqu.json", "Withdraw"],
+  ["https://cdn.lordicon.com/jdgfsfzr.json", "Help"],
+  ["https://cdn.lordicon.com/fqbvgezn.json", "Team"],
+  ["https://cdn.lordicon.com/fqbvgezn.json", "Activity"],
+  ["https://cdn.lordicon.com/pfvaixkr.json", "Invite Friends"],
+  ["https://cdn.lordicon.com/ldyubhgs.json", "Agent"],
+  ["https://cdn.lordicon.com/ldyubhgs.json", "News"],
+];
+
+// Coin icons
 const coinIcons = {
   BTC: btc,
   ETH: eth,
@@ -65,7 +72,6 @@ const Home = () => {
     document.body.appendChild(script);
   }, []);
 
-  // Binance WebSocket – live trade updates
   useEffect(() => {
     let ws;
     let isMounted = true;
@@ -104,9 +110,6 @@ const Home = () => {
       });
     };
 
-    ws.onerror = (e) => console.error("WS error:", e);
-    ws.onclose = () => console.log("Binance WebSocket closed");
-
     return () => {
       isMounted = false;
       ws.close();
@@ -116,7 +119,13 @@ const Home = () => {
   const list = prices[activeEx] || [];
 
   return (
-    <div className="home-page">
+    <motion.div
+      className="home-page"
+      style={{ scrollBehavior: "smooth" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {/* Notification */}
       <div className="home-notification">
         <MdNotificationsActive className="notif-icon" />
@@ -147,11 +156,10 @@ const Home = () => {
       </div>
 
       <div className="video-section">
-        {" "}
         <video
           controls
           src="https://www.w3schools.com/html/mov_bbb.mp4"
-        ></video>{" "}
+        ></video>
       </div>
 
       {/* Quotes section */}
@@ -179,9 +187,14 @@ const Home = () => {
 
         <div className="quotes-list">
           {list.map(({ coin, price, change }) => (
-            <div className="quote-row" key={coin}>
+            <motion.div
+              className="quote-row"
+              key={coin}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="pair">
-                {/* 🔸 Shu joy qo‘shildi */}
                 <img src={coinIcons[coin]} alt={coin} className="coin-icon" />
                 <div className="pair-text">
                   <div className="coin-name">{coin}</div>
@@ -194,7 +207,7 @@ const Home = () => {
               <div className={`change ${change >= 0 ? "up" : "down"}`}>
                 {change >= 0 ? `+${change}` : change}%
               </div>
-            </div>
+            </motion.div>
           ))}
           {list.length === 0 && (
             <div className="loading">Connecting live feed…</div>
@@ -220,7 +233,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

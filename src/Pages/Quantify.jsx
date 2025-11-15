@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./page.css";
 import { vipData } from "../data/quantifyData";
-import { useState, useEffect } from "react";
+import { motion } from "framer-motion"; // <-- Framer Motion import qilindi
+
+const VipCard = ({ vip }) => {
+  return (
+    <motion.div
+      className="vip-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.4 }}
+    >
+      <h3 className="vip-title">{vip.level}</h3>
+      <div className="vip-details">
+        {[
+          { label: "Qunt Per Day", value: vip.quntPerDay },
+          { label: "Profit Ratio", value: vip.ratio },
+          { label: "Promoter", value: vip.promoter },
+          { label: "Minimum Unlock Amount", value: vip.unlock },
+          { label: "Minimum Quantify Days", value: vip.quantDays },
+        ].map((item, idx) => (
+          <p key={idx}>
+            {item.label}: <span>{item.value}</span>
+          </p>
+        ))}
+      </div>
+
+      <div className="strategies">
+        {vip.strategies.map((s, idx) => (
+          <span key={idx} className="strategy">
+            {s}
+          </span>
+        ))}
+      </div>
+
+      <button className={vip.current ? "current-btn" : "unlock-btn"}>
+        {vip.current ? "Current Level" : "Click To Unlock"}
+      </button>
+    </motion.div>
+  );
+};
 
 const Quantify = () => {
   const [resetTime, setResetTime] = useState("");
@@ -19,6 +58,7 @@ const Quantify = () => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
   return (
     <div className="quantify-container">
       <div className="quantify-header">
@@ -37,70 +77,39 @@ const Quantify = () => {
         </div>
 
         <div className="header-info">
-          <div>
-            <p>Today's Earnings</p>
-            <span>0</span>
-          </div>
-          <div>
-            <p>Quantifiable Users</p>
-            <span>180</span>
-          </div>
-          <div>
-            <p>Countdown</p>
-            <span>176</span>
-          </div>
+          {[
+            { label: "Today's Earnings", value: 0 },
+            { label: "Quantifiable Users", value: 180 },
+            { label: "Countdown", value: 176 },
+          ].map((item, idx) => (
+            <div key={idx}>
+              <p>{item.label}</p>
+              <span>{item.value}</span>
+            </div>
+          ))}
         </div>
+
         <div className="reset-time">
           <p>Quantify Reset Time:</p>
           <span>{resetTime}</span>
         </div>
       </div>
 
-      {/* Start Quantify Button */}
       <div className="quantify-start">
         <button className="start-btn">0 / 0 Start Quantify</button>
         <p className="records-link">Transaction Records</p>
       </div>
 
-      {/* VIP Levels */}
-      <div className="vip-section">
+      <motion.div
+        className="vip-section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         {vipData.map((vip, i) => (
-          <div key={i} className="vip-card">
-            <h3 className="vip-title">{vip.level}</h3>
-            <div className="vip-details">
-              <p>
-                Qunt Per Day: <span>{vip.quntPerDay}</span>
-              </p>
-              <p>
-                Profit Ratio: <span>{vip.ratio}</span>
-              </p>
-              <p>
-                Promoter : <span>{vip.promoter}</span>
-              </p>
-              <p>
-                Minimum Unlock Amount: <span>{vip.unlock}</span>
-              </p>
-              <p>
-                Minimum Quantify Days: <span>{vip.quantDays}</span>
-              </p>
-            </div>
-
-            <div className="strategies">
-              {vip.strategies.map((s, idx) => (
-                <span key={idx} className="strategy">
-                  {s}
-                </span>
-              ))}
-            </div>
-
-            {vip.current ? (
-              <button className="current-btn">Current Level</button>
-            ) : (
-              <button className="unlock-btn">Click To Unlock</button>
-            )}
-          </div>
+          <VipCard key={i} vip={vip} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
