@@ -573,14 +573,17 @@
         width: 26px;
         height: 26px;
     }
+
     .signout-btn {
         font-size: 1.05rem;
         padding: 13px;
     }
-    .revenue-header{
+
+    .revenue-header {
         font-size: 3vw;
     }
-    .revenue-sub{
+
+    .revenue-sub {
         font-size: 3.5vw;
     }
 }
@@ -615,4 +618,64 @@
         font-size: 1rem;
         padding: 12px;
     }
+}
+
+/* Transaction record */
+
+.records-page {
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    padding-bottom: 80px;
+}
+
+.no-records {
+    text-align: center;
+    font-size: 15px;
+    color: #777;
+    margin-top: 40px;
+}
+
+.records-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 15px;
+}
+
+.record-card {
+    background: #fff;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: .25s ease;
+}
+
+.record-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.record-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.record-row p {
+    font-weight: 600;
+    color: #333;
+}
+
+.record-row span {
+    color: #555;
+}
+
+.success {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+.pending {
+    color: #f1c40f;
+    font-weight: 600;
 }

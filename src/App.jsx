@@ -19,6 +19,7 @@ import Security from "./Pages/services/Securtity";
 import QuantTutorial from "./Pages/services/QuantTutorial";
 import Problems from "./Pages/services/Problems";
 import About from "./Pages/services/About";
+import TransactionRecords from "./Pages/TransactionRecord";
 
 function Layout() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function Layout() {
     "/quant-tutorial",
     "/problems",
     "/about",
+    "/records"
   ];
 
   const hideNavbar = hideNavbarRoutes.includes(location.pathname);
@@ -52,6 +54,7 @@ function Layout() {
         <Route path="/quantify" element={<Quantify />} />
         <Route path="/invite" element={<Invite />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/records" element={<TransactionRecords />} />
       </Routes>
 
       {!hideNavbar && <NavbarBottom />}

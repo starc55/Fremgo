@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./page.css";
 import { vipData } from "../data/quantifyData";
-import { motion } from "framer-motion"; // <-- Framer Motion import qilindi
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const VipCard = ({ vip }) => {
   return (
@@ -43,6 +44,7 @@ const VipCard = ({ vip }) => {
 };
 
 const Quantify = () => {
+  const navigate = useNavigate();
   const [resetTime, setResetTime] = useState("");
 
   useEffect(() => {
@@ -58,6 +60,19 @@ const Quantify = () => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const addTransaction = () => {
+    const newRecord = {
+      type: "Quantify Start",
+      amount: 0,
+      date: new Date().toLocaleString(),
+      status: "Success",
+    };
+
+    const saved = JSON.parse(localStorage.getItem("transactions")) || [];
+    saved.push(newRecord);
+    localStorage.setItem("transactions", JSON.stringify(saved));
+  };
 
   return (
     <div className="quantify-container">
@@ -96,8 +111,12 @@ const Quantify = () => {
       </div>
 
       <div className="quantify-start">
-        <button className="start-btn">0 / 0 Start Quantify</button>
-        <p className="records-link">Transaction Records</p>
+        <button className="start-btn" onClick={addTransaction}>
+          0 / 0 Start Quantify
+        </button>
+        <p className="records-link" onClick={() => navigate("/records")}>
+          Transaction Records
+        </p>
       </div>
 
       <motion.div
